@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/add_user"
+        android:title="add"
+        android:icon="@android:drawable/ic_input_add"
+        app:showAsAction="always"/>
+
+    <item
+        android:id="@+id/anko"
+        android:title="anko"
+        android:icon="@android:drawable/ic_dialog_dialer"
+        app:showAsAction="ifRoom"/>
+
+</menu>
