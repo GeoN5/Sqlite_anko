@@ -12,6 +12,7 @@ import android.view.ViewGroup
 import android.widget.CursorAdapter
 import android.widget.ImageView
 import android.widget.TextView
+import com.example.geonho.registerroadbook.DB.UserData
 
 //ListView 구성 시 ViewHolder 패턴 사용하기
 data class ViewHolder(val pic:ImageView,val name:TextView,val tel:TextView,val del:ImageView)
@@ -29,21 +30,26 @@ class UserListAdapter(context: Context,cursor: Cursor?):CursorAdapter(context,cu
                                 mainView.findViewById(R.id.name) as TextView,
                                 mainView.findViewById(R.id.tel_num) as TextView,
                                 mainView.findViewById(R.id.del_item) as ImageView)
+        //bindView에서는 tag에 설정되어 있는 ViewHolder를 받아 텍스트나 이미지를 바꿔준다.
         mainView.tag = holder
         return mainView
     }
 
     //새로 생성된 뷰가 화면상에 보여질 때 호출되는 함수
     override fun bindView(convertView: View, context: Context, cursor: Cursor) {
+        var name_title = mCtx.resources.getString(R.string.user_title)
         val holder = convertView.tag as ViewHolder
-        holder.name.text = String.format("%s (%d)",cursor.getString(1),cursor.getInt(2))
-        holder.tel.text = cursor.getString(3)
-        val picture:Drawable = getPicture(cursor.getString(4))?:context.getDrawable(android.R.drawable.ic_menu_gallery)
+
+        holder.name.text = String.format(name_title,cursor.getString(UserData.Name.index),cursor.getInt(UserData.Age.index))
+        holder.tel.text = cursor.getString(UserData.TelNum.index)
+        //엘비스 표현으로 간결해진 코드
+        val picture:Drawable = getPicture(cursor.getString(UserData.PicPath.index))?:context.getDrawable(android.R.drawable.ic_menu_gallery)
         holder.pic.background = picture
-        //save cursor id
+        //save cursor id 삭제 imageView tag에 DB의 id값을 설정하는 코드 tag:Object
         holder.del.tag = cursor.getLong(0)
     }
 
+    //선택한 사진의 썸네일을 가져 오는 작업을 하는 함수
     private fun getPicture(path:String): Drawable?{
         val img_id = path.toLong()
         if(img_id==0L) return null

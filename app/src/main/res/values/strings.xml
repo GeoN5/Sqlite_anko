@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">RegisterRoadBook</string>
+    <string name="user_title" formatted="false">%s ( %d )</string>
 </resources>
