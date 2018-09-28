@@ -83,6 +83,7 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId){
             R.id.add_user ->{
+                //Activity간 결과값을 받기 위해 startActivityForResult 사용하기
                 startActivityForResult(Intent(this@MainActivity,SaveUserActivity::class.java), REQUEST_ADD_USER)
             }
             R.id.anko ->{

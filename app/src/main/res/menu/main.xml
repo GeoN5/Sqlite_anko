@@ -8,10 +8,9 @@
         android:icon="@android:drawable/ic_input_add"
         app:showAsAction="always"/>
 
-    <item
+    <item android:title="anko"
         android:id="@+id/anko"
-        android:title="anko"
         android:icon="@android:drawable/ic_dialog_dialer"
-        app:showAsAction="ifRoom"/>
+        app:showAsAction="ifRoom" />
 
 </menu>
