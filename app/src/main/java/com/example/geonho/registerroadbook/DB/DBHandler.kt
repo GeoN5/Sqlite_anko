@@ -19,19 +19,19 @@ enum class UserData(val index:Int){
 class DBHandler (context: Context): SQLiteOpenHelper(context,DB_Name,null,DB_Version) {
 
     companion object {
-        val DB_Name = "user.db"
-        val DB_Version = 1
+        const val DB_Name = "user.db"
+        const val DB_Version = 1
     }
 
-    val TABLE_NAME = "user"
-    val ID = "_id"
-    val NAME = "name"
-    val AGE = "age"
-    val TELNUM = "telnum"
-    val PIC_PATH = "pic_path"
+    private val TABLE_NAME = "user"
+    private val ID = "_id"
+    private val NAME = "name"
+    private val AGE = "age"
+    private val TELNUM = "telnum"
+    private val PIC_PATH = "pic_path"
 
     //사용자 정보를 저장하는 테이블 쿼리문
-    val TABLE_CREATE = "CREATE TABLE if not exits $TABLE_NAME ($ID integer PRIMARY KEY ,t, $NAME text, $AGE text, $TELNUM text, $PIC_PATH text )"
+    private val TABLE_CREATE = "CREATE TABLE if not exits $TABLE_NAME ($ID integer PRIMARY KEY ,t, $NAME text, $AGE text, $TELNUM text, $PIC_PATH text )"
 
     //DB에 저장된 모든 정보를 가져오는 함수
     fun getUserAllWithCursor():Cursor{
@@ -40,7 +40,7 @@ class DBHandler (context: Context): SQLiteOpenHelper(context,DB_Name,null,DB_Ver
 
     //함수 인자로 받은 자료를 DB에 저장하는 함수
     fun addUser(user:UserInfo){
-        var info = ContentValues()
+        val info = ContentValues()
         info.put(NAME,user.name)
         info.put(AGE,user.age)
         info.put(TELNUM,user.TelNum)

@@ -15,7 +15,7 @@ class MainActivity : AppCompatActivity() {
     var mDBHandler:DBHandler_Anko = DBHandler_Anko(this)
 
     companion object {
-        val REQUEST_ADD_USER = 1001
+        const val REQUEST_ADD_USER = 1001
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

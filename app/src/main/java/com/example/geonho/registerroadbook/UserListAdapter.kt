@@ -20,13 +20,13 @@ data class ViewHolder(val pic:ImageView,val name:TextView,val tel:TextView,val d
 //CursorAdapter를 상속받기, 마지막 인자 : Adapter의 내용이 바뀌면 onContentChanged()호출,Adapter 사용 안할때는 커서를 Adapter에서 제거해줘야 함(메모리 누수).
 class UserListAdapter(context: Context,cursor: Cursor?):CursorAdapter(context,cursor, FLAG_REGISTER_CONTENT_OBSERVER){
 
-    val mCtx = context
+    private val mCtx = context
 
     //Adapter에 뷰를 설정하기 위해서 호출되는 함수
     override fun newView(context: Context?, cursor: Cursor?, parent: ViewGroup?): View {
         val inflater = context?.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         val mainView = inflater.inflate(R.layout.layour_user_list,parent,false)
-        var holder:ViewHolder = ViewHolder(mainView.findViewById(R.id.profile) as ImageView,
+        val holder = ViewHolder(mainView.findViewById(R.id.profile) as ImageView,
                                 mainView.findViewById(R.id.name) as TextView,
                                 mainView.findViewById(R.id.tel_num) as TextView,
                                 mainView.findViewById(R.id.del_item) as ImageView)
@@ -37,7 +37,7 @@ class UserListAdapter(context: Context,cursor: Cursor?):CursorAdapter(context,cu
 
     //새로 생성된 뷰가 화면상에 보여질 때 호출되는 함수
     override fun bindView(convertView: View, context: Context, cursor: Cursor) {
-        var name_title = mCtx.resources.getString(R.string.user_title)
+        val name_title = mCtx.resources.getString(R.string.user_title)
         val holder = convertView.tag as ViewHolder
 
         holder.name.text = String.format(name_title,cursor.getString(UserData.Name.index),cursor.getInt(UserData.Age.index))
@@ -45,7 +45,7 @@ class UserListAdapter(context: Context,cursor: Cursor?):CursorAdapter(context,cu
         //엘비스 표현으로 간결해진 코드
         val picture:Drawable = getPicture(cursor.getString(UserData.PicPath.index))?:context.getDrawable(android.R.drawable.ic_menu_gallery)
         holder.pic.background = picture
-        //save cursor id 삭제 imageView tag에 DB의 id값을 설정하는 코드 tag:Object
+        //save cursor, 삭제 imageView tag에 DB의 _id값을 설정하는 코드 tag:Object
         holder.del.tag = cursor.getLong(0)
     }
 

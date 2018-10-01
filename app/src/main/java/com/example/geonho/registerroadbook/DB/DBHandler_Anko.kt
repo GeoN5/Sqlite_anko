@@ -13,17 +13,17 @@ import org.jetbrains.anko.db.createTable
 class DBHandler_Anko(context: Context) : SQLiteOpenHelper(context,DB_Name,null,DB_version){
 
     companion object {
-        val DB_Name = "user.db"
-        val DB_version = 1
+        const val DB_Name = "user.db"
+        const val DB_version = 1
     }
 
     object UserTable{
-        val TABLE_NAME = "user"
-        val ID = "_id"
-        val NAME = "name"
-        val AGE = "age"
-        val TELNUM = "telnum"
-        val PIC_PATH = "pic_path"
+        const val TABLE_NAME = "user"
+        const val ID = "_id"
+        const val NAME = "name"
+        const val AGE = "age"
+        const val TELNUM = "telnum"
+        const val PIC_PATH = "pic_path"
     }
 
     fun getUserAllWithCursor(): Cursor {
@@ -33,7 +33,7 @@ class DBHandler_Anko(context: Context) : SQLiteOpenHelper(context,DB_Name,null,D
     }
 
     fun addUser(user:UserInfo){
-        var info = ContentValues()
+        val info = ContentValues()
         info.put(UserTable.NAME,user.name)
         info.put(UserTable.AGE,user.age)
         info.put(UserTable.TELNUM,user.TelNum)

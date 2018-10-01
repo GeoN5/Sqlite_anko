@@ -18,11 +18,11 @@ import kotlinx.android.synthetic.main.activity_save_user.*
 
 @Suppress("DEPRECATION")
 class SaveUserActivity : AppCompatActivity() {
-    val mDBHandler = DBHandler_Anko(this)
+    private val mDBHandler = DBHandler_Anko(this)
     //외부 클래스로 요청한 작업에 대한 결과값 구분 변수
-    val PICK_IMAGE:Int = 1010
-    val REQ_PERMISSION = 1011
-    var mSelectedImgId:Long = 0
+    private val PICK_IMAGE:Int = 1010
+    private val REQ_PERMISSION = 1011
+    private var mSelectedImgId:Long = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,13 +47,14 @@ class SaveUserActivity : AppCompatActivity() {
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
 
-        var notGranted = kotlin.arrayOfNulls<String>(permissions.size)//1
+        val notGranted = kotlin.arrayOfNulls<String>(permissions.size)//1
                 when(requestCode){
                     REQ_PERMISSION ->{
-                        var index:Int = 0
+                        var index = 0
                         for(i in 0 until permissions.size) { //0
                             if (grantResults[i] != PackageManager.PERMISSION_GRANTED) {
                                 val rationale = ActivityCompat.shouldShowRequestPermissionRationale(this, permissions[i])
+                                //check -> false
                                 if (!rationale) { //Show Dialog that explain to grant permission
                                     val dialogBuild = AlertDialog.Builder(this).setTitle("권한 설정")
                                             .setMessage("이미지 썸네일을 만들기 위해서 저장권한이 필요합니다. 승인하지 않으면 이미지를 설정할 수 없습니다.")
@@ -63,19 +64,19 @@ class SaveUserActivity : AppCompatActivity() {
                                             }
                                     dialogBuild.create().show()
                                 } else {
-                                    notGranted[index++] = permissions[i]//??
+                                    notGranted[index++] = permissions[i]
                                 }
                             }
                         }
 
-                    if(notGranted.isNotEmpty()){//??
+                    if(notGranted.isNotEmpty()){
                         ActivityCompat.requestPermissions(this,notGranted,REQ_PERMISSION)
                     }
                 }
              }
         }
 
-    fun showSetting(){
+    private fun showSetting(){
         //사용자가 권한을 부여하도록 시스템 설정창으로 이동하기
         startActivity(Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, Uri.fromParts("package",packageName,null))
                 .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
@@ -102,7 +103,7 @@ class SaveUserActivity : AppCompatActivity() {
         }
     }
 
-    fun getImageId(uri: Uri):Long{
+    private fun getImageId(uri: Uri):Long{
         //컨텐트 프로바이더를 이용하여 이미지 가져오기
         val projection = arrayOf(MediaStore.Images.Media._ID)
         val cursor = managedQuery(uri,projection,null,null,null)
@@ -120,7 +121,7 @@ class SaveUserActivity : AppCompatActivity() {
 
     fun onClickSaveBtn(view:View){
         //사용자가 작성한 내용 저장 후 메인 화면으로 이동하기
-        val user:UserInfo = UserInfo(edit_name.text.toString(),edit_age.text.toString(),edit_tel.text.toString(),mSelectedImgId.toString())
+        val user = UserInfo(edit_name.text.toString(),edit_age.text.toString(),edit_tel.text.toString(),mSelectedImgId.toString())
         mDBHandler.addUser(user)
         mDBHandler.close()
         finish()

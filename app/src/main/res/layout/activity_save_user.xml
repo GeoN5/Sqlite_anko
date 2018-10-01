@@ -20,21 +20,26 @@
         android:padding="10dp">
         <ImageView
             android:id="@+id/sel_image"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
             android:clickable="true"
             android:background="@android:drawable/ic_menu_gallery"
-            android:onClick="onClickImage"/>
+            android:onClick="onClickImage"
+            tools:ignore="ContentDescription"
+            android:focusable="true" />
 
         <RelativeLayout
             android:id="@+id/frame_info"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/sel_image">
+            android:layout_toRightOf="@+id/sel_image"
+            android:layout_marginTop="10dp"
+            tools:ignore="RtlHardcoded">
             <TextView
+                android:layout_marginTop="15dp"
                 android:id="@+id/txt_name"
                 android:layout_width="wrap_content"
-                android:layout_height="48dp"
+                android:layout_height="40dp"
                 android:text="이름 : "
                 android:textColor="@android:color/black"
                 android:textSize="15sp"/>
@@ -43,13 +48,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:layout_toRightOf="@+id/txt_name"
-                android:textSize="15dp"
-                android:textColor="@android:color/black"/>
+                android:textSize="15sp"
+                android:textColor="@android:color/black"
+                android:inputType="text"
+                android:hint="홍길동" />
 
             <TextView
+                android:layout_marginTop="10dp"
                 android:id="@+id/txt_age"
                 android:layout_width="wrap_content"
-                android:layout_height="48dp"
+                android:layout_height="40dp"
                 android:layout_below="@+id/txt_name"
                 android:text="나이 : "
                 android:textColor="@android:color/black"
@@ -60,13 +68,16 @@
                 android:layout_height="48dp"
                 android:layout_below="@+id/edit_name"
                 android:layout_toRightOf="@+id/txt_age"
-                android:textSize="15dp"
-                android:textColor="@android:color/black"/>
+                android:textSize="15sp"
+                android:textColor="@android:color/black"
+                android:inputType="number"
+                android:hint="20"/>
 
             <TextView
+                android:layout_marginTop="10dp"
                 android:id="@+id/txt_tel"
                 android:layout_width="wrap_content"
-                android:layout_height="48dp"
+                android:layout_height="40dp"
                 android:layout_below="@+id/txt_age"
                 android:text="전화번호 : "
                 android:textColor="@android:color/black"
@@ -78,15 +89,22 @@
                 android:layout_height="48dp"
                 android:layout_below="@+id/edit_age"
                 android:layout_toRightOf="@+id/txt_tel"
-                android:textSize="15dp"
-                android:textColor="@android:color/black"/>
+                android:textSize="15sp"
+                android:textColor="@android:color/black"
+                android:hint="010-1234-5678"
+                android:inputType="phone"/>
         </RelativeLayout>
+
         <Button
             android:id="@+id/btn_add"
             android:layout_width="match_parent"
-            android:layout_height="48dp"
+            android:layout_height="50dp"
             android:layout_alignParentBottom="true"
-            android:text="추 가"
+            android:text="사용자 추가"
+            android:background="@color/colorPrimary"
+            android:textColor="@android:color/white"
+            android:textSize="20dp"
             android:onClick="onClickSaveBtn"/>
     </RelativeLayout>
+
 </LinearLayout>
