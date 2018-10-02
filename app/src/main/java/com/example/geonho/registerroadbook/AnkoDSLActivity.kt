@@ -22,6 +22,10 @@ class AnkoDSLActivity : Activity() {
             button("Show"){
                 onClick { toast("안녕하세요, ${name.text}") }
             }
+
+            button("Exit"){
+                onClick { finish() }
+            }
         }
     }
 }

@@ -3,14 +3,19 @@ package com.example.geonho.registerroadbook
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v4.app.ActivityCompat
 import android.support.v7.widget.Toolbar
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.ListView
+import android.widget.Toast
 import com.example.geonho.registerroadbook.DB.DBHandler_Anko
 
 class MainActivity : AppCompatActivity() {
+
+    private val FINSH_INTERVAL_TIME = 2000
+    private var backPressedTime:Long = 0
     private var mAdapter:UserListAdapter? = null
     var mDBHandler:DBHandler_Anko = DBHandler_Anko(this)
 
@@ -91,5 +96,16 @@ class MainActivity : AppCompatActivity() {
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun onBackPressed() {
+        val tempTime = System.currentTimeMillis()
+        val intervalTime = tempTime - backPressedTime
+        if (intervalTime in 0..FINSH_INTERVAL_TIME) {
+            ActivityCompat.finishAffinity(this)
+        } else {
+            backPressedTime = tempTime
+            Toast.makeText(applicationContext, "한번 더 누르시면 종료됩니다.", Toast.LENGTH_SHORT).show()
+        }
     }
 }
